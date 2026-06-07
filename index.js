@@ -292,6 +292,16 @@ async function connectVoice(interaction, queue, client) {
       newNet?.on('stateChange', onNetworkStateChange);
     }
   });
+  
+  connection.on('stateChange', (oldState, newState) => {
+  console.log(
+    `[VOICE] ${oldState.status} -> ${newState.status}`
+  );
+});
+
+connection.on('error', err => {
+  console.error('[VOICE ERROR]', err);
+});
 
   await new Promise((resolve, reject) => {
     const timeout = setTimeout(() => {
